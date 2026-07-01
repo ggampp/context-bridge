@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "context-bridge": {
+      "command": "context-bridge",
+      "args": ["mcp"],
+      "env": {}
+    }
+  }
+}

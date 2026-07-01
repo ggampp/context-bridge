@@ -1,0 +1,7 @@
+# Priority order for resolving which knowledge graph feeds sync/enrich/suggest.
+# The first available source in this list wins — sources are NOT merged
+# (see docs/SOURCES.md). UA stays first by default so existing UA-only
+# projects behave exactly as before v1.1.0.
+priority:
+  - ua
+  - lat-md
