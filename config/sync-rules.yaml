@@ -1,0 +1,21 @@
+version: 1
+
+layers:
+  enabled: true
+  min_nodes: 3 # ignore trivial layers with fewer nodes than this
+
+hubs:
+  enabled: true
+  min_degree: 5
+  max_nodes: 20 # top N hubs by connection degree
+
+domains:
+  enabled: true
+  min_nodes: 1
+
+tours:
+  enabled: true
+  max_tours: 3
+
+project_tag: context-bridge
+topic_key_prefix: "cb-"

@@ -1,0 +1,46 @@
+# AIMemory work.log — context-bridge
+
+### 2026-06-30 12:00 | cursor | PROJECT_BOOTSTRAPPED
+AIMemory context-bridge · v1.0.0 entregue (sprints 0–6). CLI sync/enrich/MCP operacional.
+
+### 2026-06-30 15:00 | cursor | WORK_START
+Documentação planejamento v1.x — sprints 7–10, research/, ADRs.
+
+### 2026-06-30 15:30 | cursor | FILES_CREATED
+docs/sprints/sprint-7 through sprint-10; docs/research/watchlist.md; docs/adr/004, 005
+
+### 2026-06-30 15:30 | cursor | WORK_END
+Planejamento v1.x commitável. Implementação Sprint 7 ainda pendente.
+
+### 2026-06-30 16:00 | cursor | NOTE
+AIMemory preenchido. Próximo: branch sprint-7/operacionalizacao-ua.
+
+### 2026-06-30 16:00 | cursor | HANDOFF
+→ implementador: Sprint 7 tarefas S7.1–S7.10. Handoff pai: ../../AIMemory/handoffs/2026-06-30-context-bridge-v1x-planning.md
+
+### 2026-06-30 16:20 | cursor | WORK_END
+AIMemory context-bridge completo (3 knowledge entries).
+
+### 2026-06-30 20:50 | claude | WORK_START
+Implementar Sprint 7 — S7.1–S7.10 (workflows, smoke enrich, métricas sync, skill/README/ARCHITECTURE, versão 1.0.1).
+
+### 2026-06-30 21:10 | claude | WORK_END
+Sprint 7 concluída — v1.0.1. Todos os critérios de aceite marcados em docs/sprints/sprint-7-operacionalizacao-ua.md. 131 testes offline verdes. Desbloqueia Sprint 8.
+
+### 2026-07-01 07:30 | claude | WORK_START
+Implementar sprints restantes (8, 9, 10) a pedido do usuário. Auditoria prévia revelou que a "metade de parsing" da Sprint 8 (sources/base.py, resolver.py, lat_md/*) já existia órfã (sem wiring), enquanto CHANGELOG/work.log ainda diziam "sem código ainda".
+
+### 2026-07-01 08:10 | claude | WORK_END
+Sprint 8 concluída — v1.1.0. Wiring completo: sync/engine.py e enrich/pipeline.py agora usam sources.resolver.resolve_graph(); graph_ref configurável substituiu _UA_GRAPH_REL hardcoded nos 4 mappers; CLI `graph import lat-md`; doctor detecta lat.md/ + `lat` CLI opcional; docs/SOURCES.md + ADR-002/003 (ADR-002 documenta desvio deliberado: UASource delega para loader.py, não o inverso, para evitar refactor de risco sem ganho). 49 novos testes offline (tests/test_lat_md_*.py + fixture lat_md_minimal/), 180 total verdes. Critérios de aceite marcados em docs/sprints/sprint-8-adapter-lat-md.md. Desbloqueia Sprint 9 (paralela) e Sprint 10.
+
+### 2026-07-01 08:15 | claude | WORK_START
+Sprint 9 — catálogo lat.md/Potpie + validação watchlist (Passo 4, paralela à Sprint 8 já concluída).
+
+### 2026-07-01 08:30 | claude | WORK_END
+Sprint 9 concluída — v1.1.1 (bump documental). catalog/ai-agents/knowledge/lat-md.md e potpie.md criados (dados reais via WebFetch nos repos GitHub); links cruzados UA↔lat.md↔context-bridge; manifests/projects.json com 2 novas entradas (lat-md status=active, potpie status=watchlist); README pai atualizado (tabela, mermaid, status watchlist); docs/research/watchlist.md e go-no-go-adapters.md já existiam do planejamento v1.x e atendem aos critérios de aceite sem alteração; `agent-reach-tech catalog search` validado para lat.md/potpie/context bridge. Desbloqueia Sprint 10.
+
+### 2026-07-01 08:35 | claude | WORK_START
+Sprint 10 — spikes técnicos reais Orbit KG (gkg) e Potpie, a pedido explícito do usuário (instalação de verdade, não simulada).
+
+### 2026-07-01 09:20 | claude | WORK_END
+Sprint 10 concluída — v1.2.0. Spike Orbit KG: `gkg` 0.25.0 instalado via WSL2 Ubuntu (script oficial), indexado o próprio repo context-bridge (84 arquivos, 1146 nós, 4432 relações em 0.71s), servidor MCP testado ao vivo (8 tools, `repo_map` retornou paths/linhas reais). Achado: dados bons (path + relações tipadas) mas sem export JSON público documentado (Parquet interno + "LadybugDB" sem schema garantido) — 2/5 no go/no-go, **defer** (ADR-004). Spike Potpie: instalação nativa Windows falhou de verdade (`falkordblite`/`redislite` sem suporte win32 — erro de build real capturado); 3 tentativas via WSL2 não completaram o download pesado (~200MB torch/transformers/scipy) apesar de estratégias diferentes (pipe, redirect, nohup+disown) — limitação de execução em background neste ambiente; complementado com pesquisa documental (README + docs/context-graph/architecture.md oficiais). Achado: ontologia customizável em vez de schema fixo, pacote beta v2.0.0b3 — 2/5 no go/no-go, **defer** (ADR-005). Nenhum adapter implementado (ambos abaixo do limiar ≥4). docs/research/watchlist.md e go-no-go-adapters.md atualizados com achados reais; lat.md marcado como adotado (v1.1.0). Todas as 3 sprints restantes (8, 9, 10) do context-bridge concluídas nesta sessão — v1.0.1 → v1.2.0.

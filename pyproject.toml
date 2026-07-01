@@ -1,0 +1,54 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "context-bridge"
+version = "1.2.0"
+description = "Bridge Understand Anything knowledge graphs to Engram persistent memory"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Guilherme Pimentel", email = "ggampp@gmail.com" }]
+keywords = ["mcp", "agents", "engram", "knowledge-graph", "memory", "cli"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Topic :: Software Development :: Libraries",
+]
+dependencies = [
+  "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0",
+  "pytest-cov>=4.0",
+]
+mcp = [
+  "mcp>=1.2.0",
+]
+all = [
+  "mcp>=1.2.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/ggampp/context-bridge"
+Repository = "https://github.com/ggampp/context-bridge"
+
+[project.scripts]
+context-bridge = "context_bridge.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["context_bridge*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+  "network: tests requiring live network access",
+]
+addopts = "-ra"

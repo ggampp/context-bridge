@@ -1,0 +1,69 @@
+{
+  "version": "1.0.0-test",
+  "metadata": {
+    "languages": {
+      "typescript": 3,
+      "python": 1
+    },
+    "domains": {
+      "auth": ["node-login", "node-middleware"]
+    }
+  },
+  "nodes": [
+    {
+      "id": "node-router",
+      "label": "router.ts",
+      "type": "file",
+      "path": "src/api/router.ts",
+      "layer": "api",
+      "summary": "Main API router wiring HTTP routes.",
+      "language": "typescript"
+    },
+    {
+      "id": "node-login",
+      "label": "login.ts",
+      "type": "file",
+      "path": "src/auth/login.ts",
+      "layer": "api",
+      "summary": "Handles user login and token issuance.",
+      "domain": "auth",
+      "language": "typescript"
+    },
+    {
+      "id": "node-middleware",
+      "label": "middleware.ts",
+      "type": "file",
+      "path": "src/auth/middleware.ts",
+      "layer": "api",
+      "summary": "JWT validation middleware.",
+      "domain": "auth",
+      "language": "typescript"
+    },
+    {
+      "id": "node-service",
+      "label": "user_service.py",
+      "type": "file",
+      "path": "src/service/user_service.py",
+      "layer": "service",
+      "summary": "User persistence and lookup.",
+      "language": "python"
+    },
+    {
+      "id": "fn-handle-login",
+      "label": "handleLogin",
+      "type": "function",
+      "path": "src/auth/login.ts",
+      "layer": "api",
+      "summary": "POST /login handler."
+    }
+  ],
+  "edges": [
+    { "source": "node-router", "target": "node-login", "type": "imports" },
+    { "source": "node-router", "target": "node-middleware", "type": "imports" },
+    { "source": "node-login", "target": "node-service", "type": "calls" },
+    { "source": "node-middleware", "target": "node-service", "type": "calls" },
+    { "source": "node-login", "target": "fn-handle-login", "type": "contains" },
+    { "source": "node-router", "target": "node-service", "type": "calls" },
+    { "source": "node-router", "target": "fn-handle-login", "type": "references" }
+  ]
+}
